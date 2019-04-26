@@ -29,16 +29,16 @@
                         <input type="text" class="form-control" placeholder="FirstName" value="<? echo $this->session->flashdata('datas')['FirstName']; ?>" name="FirstName">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email" value="<? echo $this->session->flashdata('datas')['Email']; ?>" name="Email">
+                        <input type="email" class="form-control" placeholder="Email" value="<? echo $this->session->flashdata('datas')['Email']; ?>" name="Email">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="UserName" value="<? echo $this->session->flashdata('datas')['UserName']; ?>" name="UserName">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Password" value="<? echo $this->session->flashdata('datas')['Password']; ?>" name="Password">
+                        <input type="password" class="form-control" placeholder="Password" value="<? echo $this->session->flashdata('datas')['Password']; ?>" name="Password">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="PasswordAgain" value="<? echo $this->session->flashdata('datas')['PasswordAgain']; ?>" name="PasswordAgain">
+                        <input type="password" class="form-control" placeholder="PasswordAgain" value="<? echo $this->session->flashdata('datas')['PasswordAgain']; ?>" name="PasswordAgain">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Küldés" class="btn btn-primary py-3 px-5">
