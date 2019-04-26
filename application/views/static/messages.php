@@ -13,10 +13,20 @@
 
     <?php }else if($this->session->flashdata('error')){  ?>
 
-   // toastr.error("<?php echo $this->session->flashdata('error'); ?>");
-    toastr.error("<?=str_replace(\"\\n\", '\\n', $this->session->flashdata('error')");
+    <?php
+    $return = '';
+    if(is_array($this->session->flashdata('error'))) {
+        $size = sizeof($this->session->flashdata('error'));
+        for($i = 1; $i < $size;$i++) {
+            echo 'toastr.error("'.trim($this->session->flashdata("error")[$i]).'");'."\n";
+        }
+    }
+    else
+        echo 'toastr.error("'.trim($this->session->flashdata("error")).'");'."\n";
 
-        <?php }else if($this->session->flashdata('warning')){  ?>
+    ?>
+
+            <?php }else if($this->session->flashdata('warning')){  ?>
 
     toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
 

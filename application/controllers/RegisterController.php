@@ -3,9 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * @property  lang
+ * @property  input
  */
 class RegisterController extends CI_Controller {
+
     private $data = [];
+    public $input;
+
+    /**
+     * RegisterController constructor.
+     */
     public function __construct() {
         parent::__construct();
         $this->load->library("session");
@@ -13,43 +20,64 @@ class RegisterController extends CI_Controller {
         $this->load->model('User_model');
         $this->data['lang'] = $this->lang->load('register','hungarian',true);
     }
-    public function index()
-    {
-        $this->view('register',$this->data);
+
+    /**
+     * RegisterController index.
+     */
+    public function index() {
+        return $this->view('register',$this->data);
     }
+
+    /**
+     * RegisterController send.
+     */
     public function send() {
         $datas = $this->input->post();
         if(!$this->validate()) {
-            //die(nl2br(validation_errors()));
             $errors = validation_errors();
-            $this->session->set_flashdata('error', $errors);
+            $errorsClean = str_replace('</p>', '', $errors);
+            $e = explode('<p>',$errorsClean);
+            $this->session->set_flashdata('error', $e);
             $this->session->set_flashdata('datas', $datas);
             redirect($_SERVER['HTTP_REFERER']);
         }
         else {
+            $existUser = $this->User_model->existUser($datas['Email']);
+            if($existUser) {
+                $this->session->set_flashdata('error', "Az email cím már létezik");
+                $this->session->set_flashdata('datas', $datas);
+                redirect($_SERVER['HTTP_REFERER']);
+            }
             unset($datas['PasswordAgain']);
+            $datas['UserIP'] = $_SERVER['REMOTE_ADDR'];
+            $datas['DateTime'] = date('Y-m-d H:i:s');
             $this->User_model->register($datas);
             $this->session->set_flashdata('success', "Sikeres regi bazdmeg");
             redirect($_SERVER['HTTP_REFERER']);
         }
 
     }
-    public function validate() {
+
+    /**
+     * @return bool
+     */
+    public function validate()
+    {
         $config = array(
             array(
                 'field' => 'LastName',
                 'label' => 'LastName',
                 'rules' => 'required',
                 'errors' => array(
-                'required' => 'A megadott név: %s. nem megfelelő!',
-                    ),
+                    'required' => 'A megadott család név nem megfelelő!',
                 ),
+            ),
             array(
                 'field' => 'FirstName',
                 'label' => 'FirstName',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott név: %s. nem megfelelő!',
+                    'required' => 'A megadott kereszt név nem megfelelő!',
                 ),
             ),
             array(
@@ -57,7 +85,8 @@ class RegisterController extends CI_Controller {
                 'label' => 'Email',
                 'rules' => 'required|valid_email',
                 'errors' => array(
-                    'required' => 'A megadott email cím: %s. nem megfelelő!',
+                    'required' => 'A megadott email cím nem megfelelő!',
+                    'valid_email' => 'A megadott email cím formátuma nem megfelelő!',
                 ),
             ),
             array(
@@ -65,7 +94,7 @@ class RegisterController extends CI_Controller {
                 'label' => 'UserName',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott név: %s. nem megfelelő!',
+                    'required' => 'A megadott felhasználó név nem megfelelő!',
                 ),
             ),
             array(
@@ -73,34 +102,26 @@ class RegisterController extends CI_Controller {
                 'label' => 'Password',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott jelszó %s. nem megfelelő!',
+                    'required' => 'A megadott jelszó nem megfelelő!',
                 ),
             ),
             array(
                 'field' => 'PasswordAgain',
                 'label' => 'PasswordAgain',
-                'rules' => 'required',
+                'rules' => 'required|matches[Password]',
                 'errors' => array(
-                    'required' => 'A megadott jelszó %s. nem megfelelő!',
+                    'required' => 'A megadott jelszó nem megfelelő!',
+                    'matches' => 'A megadott jelszavak nem egyeznek!',
                 ),
             ),
 
 
         );
         $this->form_validation->set_rules($config);
-        /*$this->form_validation->set_rules('LastName', 'LastName', 'required');
-        $this->form_validation->set_rules('FirstName', 'FirstName', 'required');
-        $this->form_validation->set_rules('Email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('UserName', 'UserName', 'required');
-        $this->form_validation->set_rules('Password', 'Password', 'required');
-        $this->form_validation->set_rules('PasswordAgain', 'PasswordAgain', 'required|matches[Password]');*/
 
         if ($this->form_validation->run() == FALSE)
-        {
             return FALSE;
-        }
-        else {
-           return TRUE;
-        }
+        else
+            return TRUE;
     }
 }

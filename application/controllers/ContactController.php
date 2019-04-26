@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ContactController extends CI_Controller {
     public $email;
     public $input;
+    public $lang;
 
     public function __construct() {
         parent::__construct();
@@ -21,8 +22,8 @@ class ContactController extends CI_Controller {
         $this->view('contact',$data);
     }
     public function send() {
-         $this->initEmail(1,2,3,4);
-         //$this->initEmail($this->input->post('name'),$this->input->post('email'),$this->input->post('subject'),$this->input->post('message'));
+         //$this->initEmail(1,2,3,4);
+        $this->initEmail($this->input->post('name'),$this->input->post('email'),$this->input->post('subject'),$this->input->post('message'));
         $this->session->set_flashdata('success', 'Sikeresen elküldted');
         redirect($_SERVER['HTTP_REFERER']);
     }

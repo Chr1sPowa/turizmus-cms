@@ -61,3 +61,4 @@ $route['blog'] = 'BlogController';
 $route['contact'] = 'ContactController';
 $route['contact/send'] = 'ContactController/send';
 $route['register'] = 'RegisterController';
+$route['register/send'] = 'RegisterController/send';
