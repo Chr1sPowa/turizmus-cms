@@ -21,21 +21,27 @@
         </div>
         <div class="row block-9">
             <div class="col-md-6 pr-md-5">
-                <form action="<?=base_url('contact/send');?>" method="POST">
+                <form action="<?=base_url('register/send');?>" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="<?=$lang['your_name']?>" name="name">
+                        <input type="text" class="form-control" name="LastName" value="<? echo $this->session->flashdata('datas')['LastName']; ?>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="<?=$lang['your_email']?>" name="email">
+                        <input type="text" class="form-control" value="<? echo $this->session->flashdata('datas')['FirstName']; ?>" name="FirstName">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="<?=$lang['subject']?>" name="subject">
+                        <input type="text" class="form-control" value="<? echo $this->session->flashdata('datas')['Email']; ?>" name="Email">
                     </div>
                     <div class="form-group">
-                        <textarea id="" cols="30" rows="7" class="form-control" placeholder="<?=$lang['message']?>" name="message"></textarea>
+                        <input type="text" class="form-control" value="<? echo $this->session->flashdata('datas')['UserName']; ?>" name="UserName">
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="<?=$lang['send_message']?>" class="btn btn-primary py-3 px-5">
+                        <input type="text" class="form-control" value="<? echo $this->session->flashdata('datas')['Password']; ?>" name="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="<? echo $this->session->flashdata('datas')['PasswordAgain']; ?>" name="PasswordAgain">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Küldés" class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
             </div>
