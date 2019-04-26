@@ -14,9 +14,9 @@
     <?php }else if($this->session->flashdata('error')){  ?>
 
    // toastr.error("<?php echo $this->session->flashdata('error'); ?>");
-    <?php echo $this->session->flashdata('error'); ?>
+    toastr.error("<?=str_replace(\"\\n\", '\\n', $this->session->flashdata('error')");
 
-    <?php }else if($this->session->flashdata('warning')){  ?>
+        <?php }else if($this->session->flashdata('warning')){  ?>
 
     toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
 
