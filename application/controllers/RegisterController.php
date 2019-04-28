@@ -52,7 +52,7 @@ class RegisterController extends CI_Controller {
             $datas['UserIP'] = $_SERVER['REMOTE_ADDR'];
             $datas['DateTime'] = date('Y-m-d H:i:s');
             $this->User_model->register($datas);
-            $this->session->set_flashdata('success', "Sikeres regi bazdmeg");
+            $this->session->set_flashdata('success', "Sikeres regisztráció");
             redirect($_SERVER['HTTP_REFERER']);
         }
 
@@ -69,7 +69,7 @@ class RegisterController extends CI_Controller {
                 'label' => 'LastName',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott család név nem megfelelő!',
+                    'required' => 'A megadott vezetéknév nem megfelelő!',
                 ),
             ),
             array(
@@ -77,7 +77,7 @@ class RegisterController extends CI_Controller {
                 'label' => 'FirstName',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott kereszt név nem megfelelő!',
+                    'required' => 'A megadott keresztnév nem megfelelő!',
                 ),
             ),
             array(
@@ -94,7 +94,7 @@ class RegisterController extends CI_Controller {
                 'label' => 'UserName',
                 'rules' => 'required',
                 'errors' => array(
-                    'required' => 'A megadott felhasználó név nem megfelelő!',
+                    'required' => 'A megadott felhasználónév nem megfelelő!',
                 ),
             ),
             array(
