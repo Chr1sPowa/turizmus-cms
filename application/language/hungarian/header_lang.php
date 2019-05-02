@@ -2,9 +2,9 @@
 $lang = [
     'home' => 'Főoldal',
     'about' => 'Rólunk',
-    'tour' => 'Turizmus',
-    'hotels' => 'Hotelek',
-    'blog' => 'Blog',
+    'tour' => 'Belföldi utak',
+    'hotels' => 'Szállások',
+    'blog' => 'Ajánló',
     'register' => 'Regisztráció',
     'contact' => 'Kapcsolat',
     'apart' => 'ApartMarkt',

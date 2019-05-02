@@ -23,16 +23,16 @@
                 <div class="col-md-6 pr-md-5">
                     <form action="<?=base_url('contact/send');?>" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="<?=$lang['your_name']?>" name="name">
+                            <input type="text" class="form-control" placeholder="<?=$lang['your_name']?>" name="name" value="<? echo $this->session->flashdata('datas')['name']; ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="<?=$lang['your_email']?>" name="email">
+                            <input type="email" class="form-control" placeholder="<?=$lang['your_email']?>" name="email" value="<? echo $this->session->flashdata('datas')['email']; ?>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="<?=$lang['subject']?>" name="subject">
+                            <input type="text" class="form-control" placeholder="<?=$lang['subject']?>" name="subject" value="<? echo $this->session->flashdata('datas')['subject']; ?>">
                         </div>
                         <div class="form-group">
-                            <textarea id="" cols="30" rows="7" class="form-control" placeholder="<?=$lang['message']?>" name="message"></textarea>
+                            <textarea id="" cols="30" rows="7" class="form-control" placeholder="<?=$lang['message']?>" name="message" value="<? echo $this->session->flashdata('datas')['message']; ?>"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="<?=$lang['send_message']?>" class="btn btn-primary py-3 px-5">

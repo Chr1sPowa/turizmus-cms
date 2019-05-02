@@ -1,9 +1,9 @@
 <?php
 $lang = [
     'home' => 'Főoldal',
-    'contact' => 'Kapcsolatok',
-    'contact_information' => 'Kapcsolati információk',
-    'phone' => 'Telefon',
+    'register' => 'Regisztráció',
+    'register_text' => 'Regisztrációs adatok',
+    'register_h1' => 'Regisztráció',
     'your_name' => 'Teljes név',
     'your_email' => 'E-mail cím',
     'subject' => 'Tárgy',
