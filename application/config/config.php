@@ -456,6 +456,11 @@ $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array(
     'contact/send',
     'register/send',
+    'login/send',
+    'searchName',
+    'attach',
+    'booking',
+    'home/bookings/delete',
 );
 
 /*

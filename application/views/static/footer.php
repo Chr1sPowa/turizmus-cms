@@ -50,6 +50,16 @@
     </div>
 </footer>
 
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img src="" class="imagepreview" style="width: 100%;" >
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- loader -->
@@ -73,6 +83,143 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="<?=base_url('assets/js/google-map.js')?>"></script>
 <script src="<?=base_url('assets/js/main.js')?>"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- MDBootstrap Datatables  -->
+<script type="text/javascript" src="<?=base_url('assets/js/datatables.min.js')?>"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1686162514563267",
+        enable_page_level_ads: true
+    });
+    window.hotelID = null;
+    $(".attachHotel").click(function() {
+        window.hotelID  = $(this).attr('data-hotel_id');
+        var data = {
+          hotelID: hotelID
+        };
+        $.ajax({
+            url: '<?=base_url('attach')?>',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+                console.log(result.success);
+                if(result.success === false) {
+                    toastr.error(result.msg);
+                }
+           }
+        });
+    });
+    $('#bookingSubmit').click(function() {
+        var ChildrenNum = $('#ChildrenNum').val();
+        var NumOfDays = $('#NumOfDays').val();
+        var AdultNum = $('#AdultNum').val();
+        var data = {
+            HotelID: window.hotelID,
+            ChildrenNum: ChildrenNum,
+            NumOfDays: NumOfDays,
+            AdultNum: AdultNum,
+        };
+        $.ajax({
+            url: '<?=base_url('booking')?>',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            success: function(result) {
+                console.log(result);
+                if(result.success === false) {
+                    toastr.error(result.msg);
+                }
+                if(result.success) {
+                    toastr.success(result.msg);
+                    $(".close").trigger('click');
+                    $('#ChildrenNum').val('');
+                    $('#NumOfDays').val('');
+                    $('#AdultNum').val('');
+                }
+            }
+        });
+    });
+
+    $('#calculatePrice').click(function() {
+        var ChildrenNum = $('#ChildrenNum').val();
+        var NumOfDays = $('#NumOfDays').val();
+        var AdultNum =$('#AdultNum').val();
+        var data = {
+            hotelID: window.hotelID,
+            ChildrenNum: ChildrenNum,
+            NumOfDays: NumOfDays,
+            AdultNum: AdultNum,
+        };
+        $.ajax({
+            url: '<?=base_url('booking/calculatePrice')?>',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            success: function(result) {
+                if(result.success) {
+                    var allPrice = parseInt(result.childPriceAll) + parseInt(result.adultPriceAll);
+                    var allPriceChild = parseInt(result.childPriceAll);
+                    var sllPriceAdult = parseInt(result.adultPriceAll);
+                    var allDays = parseInt(NumOfDays);
+                    allDays = (allDays === "" || isNaN(allDays)) ? 1 : allDays;
+                    $("#allPriceSpanChild").html(allPriceChild);
+                    $("#allPriceSpanAdult").html(sllPriceAdult);
+                    $("#allPriceSpan").html(allPrice * allDays);
+                }
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+    $('.deleteBooking').click(function() {
+        var bookingID =  $(this).attr('data-id');
+        var data = {
+            bookingID: bookingID
+        };
+        $.ajax({
+            url: '<?=base_url('home/bookings/delete')?>',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            success: function(result) {
+                if(result.success) {
+                    toastr.success(result.msg);
+                    // ezt a fost csináld meg
+                    $('#booking_'+bookingID).remove();
+                }
+                if(result.success === false) {
+                    toastr.error(result.msg);
+                }
+            }
+        });
+    });
+    $(function() {
+        $('.pop').on('click', function() {
+            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+            $('#imagemodal').modal('show');
+        });
+    });
+    $(function() {
+        $('.popp').on('click', function() {
+            $('.imagepreview').attr('src', $(this).attr('data-image'));
+            $('#imagemodal').modal('show');
+        });
+    });
+
+</script>
+
 
 </body>
 </html>

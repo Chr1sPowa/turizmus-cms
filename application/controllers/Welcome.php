@@ -26,9 +26,11 @@ class Welcome extends CI_Controller {
 
     public function index()
 	{
-	    $hotels = $this->Hotel_model->show();
+	    //$hotels = $this->Hotel_model->show();
+	    //$region = $this->Hotel_model->allRegion();
         $data['lang'] = $this->lang->load('welcome','hungarian',true);
         $data['hotels'] = $this->Hotel_model->show();
+        $data['regions'] = $this->Hotel_model->allRegion();
         $this->view('home',$data);
 	}
 }

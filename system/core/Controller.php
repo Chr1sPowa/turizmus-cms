@@ -93,6 +93,10 @@ class CI_Controller {
 		return self::$instance;
 	}
 	public function view($view, $vars = array(), $return = FALSE) {
+	    if(isset($_SESSION['userSession'])) {
+            $this->load->model('User_model');
+            $header['user'] = $this->User_model->getUser($_SESSION['userSession']);
+        }
         $header['lang'] = $this->lang->load('header','hungarian',true);
         $footer['lang'] = $this->lang->load('footer','hungarian',true);
         $this->load->view('static/header',$header);

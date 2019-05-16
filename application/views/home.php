@@ -1,4 +1,5 @@
- <div class="hero-wrap js-fullheight" style="background-image: url('assets/images/bg_1.jpg');">
+<?php $this->view('static/messages'); ?>
+<div class="hero-wrap js-fullheight" style="background-image: url('assets/images/bg_1.jpg');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
@@ -6,20 +7,18 @@
                     <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Fedezd fel Magyarországot!</strong></h1>
                     <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Találd meg számodra a legmegfelelőbb utazást,  éttermet, szórakozást!</p>
                     <div class="block-17 my-4">
-                        <form action="" method="post" class="d-block d-flex">
+                            <form action="<?=base_url('searchName')?>" method="POST" class="d-block d-flex">
                             <div class="fields d-block d-flex">
                                 <div class="textfield-search one-third">
-                                    <input type="text" class="form-control" placeholder="Pl.: hotel neve, étterem neve">
+                                    <input type="text" class="form-control" placeholder="Pl.: hotel neve, étterem neve" name="name" value="<? echo $this->session->flashdata('datas')['name']; ?>">
                                 </div>
                                 <div class="select-wrap one-third">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control" placeholder="Keyword search">
-                                        <option value="1">Válasszon régiót!</option>
-                                        <option value="2">Dunántúl</option>
-                                        <option value="3">Közép-Magyarország</option>
-                                        <option value="4">Észak-Magyarország</option>
-                                        <option value="5">Tiszántúl</option>
-                                        <option value="6">Dél-Alföld</option>
+                                    <select name="region" id="" class="form-control" placeholder="Keyword search">
+                                        <option selected disabled>Válasszon ki egy térséget</option>
+                                        <?foreach($regions as $key => $region):?>
+                                        <option><?=$region->kisterseg?></option>
+                                        <? endforeach; ?>
                                     </select>
                                 </div>
                             </div>
@@ -189,7 +188,7 @@
                 <div class="destination">
                     <a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<?=($hotel->Path)?>);">
                         <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
+                            <span class="icon-search2 popp" data-image="<?=($hotel->Path)?>"></span>
                         </div>
                     </a>
                     <div class="text p-3">
@@ -216,7 +215,6 @@
                         <hr>
                         <p class="bottom-area d-flex">
                             <span><i class="icon-map-o"></i> <?=$hotel->vnev?></span>
-                            <span class="ml-auto"><a href="#">Foglalás</a></span>
                         </p>
                     </div>
                 </div>

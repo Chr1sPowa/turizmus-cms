@@ -55,10 +55,22 @@ $route['translate_uri_dashes'] = FALSE;
 //$route['asd/(:num)/(:num)'] = 'HomeController/metodusCsakSzam/$1/$2';
 //$route['asd/(:any)'] = 'HomeController/metodus/$1';
 $route['about'] = 'AboutController';
-$route['tour'] = 'TourController';
 $route['hotels'] = 'HotelController';
 $route['blog'] = 'BlogController';
 $route['contact'] = 'ContactController';
 $route['contact/send'] = 'ContactController/send';
 $route['register'] = 'RegisterController';
+$route['login'] = 'LoginController';
+$route['login/send'] = 'LoginController/send';
 $route['register/send'] = 'RegisterController/send';
+$route['home'] = 'HomeController';
+$route['home/bookings'] = 'HomeController/bookings';
+$route['home/bookings/delete'] = 'HomeController/delete';
+$route['logout'] = 'LoginController/logout';
+
+
+$route['attach'] = 'AttachController/attach';
+$route['booking'] = 'BookingController';
+$route['booking/calculatePrice'] = 'BookingController/calculate';
+//
+$route['searchName'] = 'SearchController/send';

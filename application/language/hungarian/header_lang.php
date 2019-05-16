@@ -8,4 +8,5 @@ $lang = [
     'register' => 'Regisztráció',
     'contact' => 'Kapcsolat',
     'apart' => 'ApartMarkt',
+    'login' => 'Bejelentkezés',
 ];
